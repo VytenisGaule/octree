@@ -2,3 +2,4 @@ laspy
 numpy
 matplotlib
 pytest
+python-dotenv

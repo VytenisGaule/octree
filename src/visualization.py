@@ -1,13 +1,14 @@
 from matplotlib.figure import Figure
 import numpy as np
-from numpy import ndarray
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from models import Octree
 import logging
+from dotenv import load_dotenv
+import os
 
 logging.basicConfig(level=logging.INFO)
-
+load_dotenv()
 
 def plot_sphere(axes_obj: Axes3D, center: tuple, size: float):
     """Plot a sphere"""
@@ -41,11 +42,14 @@ def plot_octree(axes_obj: Axes3D, octree: Octree, max_points_per_leaf: int = Non
 def visualize_octree(octree: Octree) -> bool:
     """Visualize octree and return True if successful, False otherwise"""
     try:
+        DEBUG: bool = os.getenv('DEBUG', 'False').lower() == 'true'
         fig: Figure = plt.figure()
         axes_obj: Axes3D = fig.add_subplot(111, projection='3d')
-        plot_octree(axes_obj, octree, max_points_per_leaf=100)
+        if DEBUG:
+            plot_octree(axes_obj, octree, max_points_per_leaf=10)
+        else:
+            plot_octree(axes_obj, octree)
         plt.savefig('plot.png')
-        # plt.show()
         return True
     except Exception as e:
         logging.error("Error visualizing octree: %s", e)
