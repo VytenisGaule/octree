@@ -17,7 +17,7 @@ def plot_sphere(axes_obj: Axes3D, center: tuple, size: float):
     x = center[0] + (size / 2) * np.outer(np.cos(longitude), np.sin(latitude))
     y = center[1] + (size / 2) * np.outer(np.sin(longitude), np.sin(latitude))
     z = center[2] + (size / 2) * np.outer(np.ones(np.size(longitude)), np.cos(latitude))
-    axes_obj.plot_wireframe(x, y, z, color="g", alpha=0.1)
+    axes_obj.plot_wireframe(x, y, z, color="g", alpha=0)
 
 def plot_points(axes_obj: Axes3D, points: np.ndarray, max_points_per_leaf: int = None):
     """Plot points within a sphere"""

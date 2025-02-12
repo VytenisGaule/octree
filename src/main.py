@@ -5,6 +5,7 @@ import numpy as np
 from numpy import ndarray
 from models import Octree
 from visualization import visualize_octree
+import os
 
 
 logging.basicConfig(level=logging.INFO)
@@ -12,10 +13,18 @@ logging.basicConfig(level=logging.INFO)
 def main():
     """ main function """
 
+    las_file: str = os.getenv('LAS_FILE', None)
+    if not las_file:
+        logging.error("LAS file not specified in environment variables")
+        return
+    
     try:
-        las: LasData = laspy.read("octree-sphere-project/madison.las")
+        las: LasData = laspy.read(las_file)
     except laspy.LaspyException as e:
         logging.error("Error reading LAS file: %s", e)
+        return
+    except FileNotFoundError as e:
+        logging.error("LAS file not found: %s", e)
         return
     
     points: ndarray = np.vstack((las.x, las.y, las.z)).transpose()
