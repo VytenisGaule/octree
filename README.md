@@ -28,7 +28,8 @@
 
 1. **upload .las file**:
 
-    ```upload .las file into project root directory
+    ```
+    upload .las file into project root directory
     insert your .las file name into .env file:
     LAS_FILE=your_las_file_name.las
     ```
