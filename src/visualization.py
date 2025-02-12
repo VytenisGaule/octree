@@ -11,16 +11,16 @@ logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
 def plot_sphere(axes_obj: Axes3D, center: tuple, size: float):
-    """Plot a sphere"""
-    longitude = np.linspace(0, 2 * np.pi, 10)
-    latitude = np.linspace(0, np.pi, 10)
-    x = center[0] + (size / 2) * np.outer(np.cos(longitude), np.sin(latitude))
-    y = center[1] + (size / 2) * np.outer(np.sin(longitude), np.sin(latitude))
-    z = center[2] + (size / 2) * np.outer(np.ones(np.size(longitude)), np.cos(latitude))
+    """Plot sphere"""
+    longitude: np.ndarray = np.linspace(0, 2 * np.pi, 10)
+    latitude: np.ndarray = np.linspace(0, np.pi, 10)
+    x: np.ndarray = center[0] + (size / 2) * np.outer(np.cos(longitude), np.sin(latitude))
+    y: np.ndarray = center[1] + (size / 2) * np.outer(np.sin(longitude), np.sin(latitude))
+    z: np.ndarray = center[2] + (size / 2) * np.outer(np.ones(np.size(longitude)), np.cos(latitude))
     axes_obj.plot_wireframe(x, y, z, color="g", alpha=0)
 
 def plot_points(axes_obj: Axes3D, points: np.ndarray, max_points_per_leaf: int = None):
-    """Plot points within a sphere"""
+    """Plot points within sphere"""
     if points.size > 0:
         if max_points_per_leaf is not None and points.shape[0] > max_points_per_leaf:
             points = points[:max_points_per_leaf]
